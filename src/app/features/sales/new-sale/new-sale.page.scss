@@ -1,0 +1,414 @@
+.screen-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-intro h1 {
+  margin: 0;
+  color: var(--qist-ink);
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.form-intro p {
+  margin: 5px 0 0;
+  color: var(--qist-muted);
+  font-size: 13px;
+}
+
+.search-control {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  gap: 9px;
+  padding: 0 12px;
+  border: 1px solid var(--qist-card-border);
+  border-radius: 12px;
+  background: var(--qist-input-bg);
+}
+
+.search-control > ion-icon {
+  flex: none;
+  color: var(--qist-muted);
+  font-size: 18px;
+}
+
+.search-control ion-input {
+  --padding-start: 0;
+  --padding-end: 0;
+  --color: var(--qist-ink);
+  --placeholder-color: var(--qist-muted);
+  min-height: 46px;
+  font-size: 13px;
+}
+
+.money {
+  font-weight: 650 !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.015em;
+}
+
+ion-button.button-small {
+  min-height: 40px;
+}
+
+.recovery-avatar {
+  display: grid;
+  flex: none;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 13px;
+  background: var(--qist-panel);
+  color: var(--qist-primary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.form-screen {
+  gap: 12px;
+}
+
+.form-intro {
+  margin: 0 0 2px;
+}
+
+.form-intro h1 {
+  font-size: 21px;
+}
+
+.form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 15px;
+  border: 1px solid var(--qist-card-border);
+  border-radius: 16px;
+  background: var(--qist-card);
+  box-shadow: var(--qist-shadow);
+}
+
+.field-label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--qist-ink);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.field-label > span > b {
+  color: var(--qist-bad);
+}
+
+.field-label > span > small {
+  color: var(--qist-muted);
+  font-size: 10px;
+  font-weight: 450;
+}
+
+.field-label > small {
+  color: var(--qist-muted);
+  font-size: 10px;
+  font-weight: 450;
+}
+
+.field-label ion-input {
+  --background: var(--qist-input-bg);
+  --color: var(--qist-ink);
+  --placeholder-color: var(--qist-muted);
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 11px;
+  --padding-bottom: 11px;
+  min-height: 45px;
+  border: 1px solid var(--qist-line);
+  border-radius: 10px;
+  background: var(--qist-input-bg);
+  font-size: 13px;
+  font-weight: 450;
+}
+
+.field-label ion-textarea {
+  --background: var(--qist-input-bg);
+  --color: var(--qist-ink);
+  --placeholder-color: var(--qist-muted);
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 11px;
+  --padding-bottom: 11px;
+  min-height: 45px;
+  border: 1px solid var(--qist-line);
+  border-radius: 10px;
+  background: var(--qist-input-bg);
+  font-size: 13px;
+  font-weight: 450;
+}
+
+.field-label ion-textarea {
+  min-height: 68px;
+}
+
+.field-label ion-input[readonly] {
+  --background: var(--qist-panel);
+  opacity: 0.75;
+}
+
+.field-label > .field-error {
+  color: var(--qist-bad);
+  font-size: 10px;
+}
+
+.sticky-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 0 -16px -16px;
+  padding: 10px 16px calc(9px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--qist-card-border);
+  background: var(--qist-bg);
+}
+
+.sticky-actions ion-button {
+  margin: 0;
+}
+
+.sticky-actions .cancel-button {
+  --color: var(--qist-muted);
+}
+
+.cancel-button {
+  --color: var(--qist-muted);
+}
+
+.step-indicator {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 9px 2px 13px;
+}
+
+.step-indicator > div {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  color: var(--qist-muted);
+}
+
+.step-indicator > div > span {
+  display: grid;
+  width: 29px;
+  height: 29px;
+  place-items: center;
+  border: 1px solid var(--qist-line);
+  border-radius: 50%;
+  background: var(--qist-card);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.step-indicator > div.current {
+  color: var(--qist-primary);
+}
+
+.step-indicator > div.current > span {
+  border-color: var(--qist-primary);
+  background: var(--qist-primary);
+  color: var(--qist-primary-text);
+}
+
+.step-indicator small {
+  font-size: 9px;
+}
+
+.step-indicator > i {
+  flex: 1;
+  height: 1px;
+  margin-top: 14px;
+  background: var(--qist-line);
+}
+
+.step-indicator > i.done {
+  background: var(--qist-primary);
+}
+
+.step-title span {
+  color: var(--qist-muted);
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+}
+
+.sale-review > span {
+  color: var(--qist-muted);
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+}
+
+.step-title h2 {
+  margin: 4px 0 3px;
+  font-size: 17px;
+}
+
+.picker-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 58px;
+  gap: 10px;
+  padding: 7px;
+  border: 1px solid var(--qist-card-border);
+  border-radius: 12px;
+  background: var(--qist-card);
+  color: var(--qist-ink);
+  text-align: left;
+}
+
+.picker-row.picked {
+  border-color: var(--qist-primary);
+}
+
+.picker-row > span:nth-child(2) {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  gap: 4px;
+}
+
+.picker-row strong {
+  font-size: 11px;
+}
+
+.picker-row small {
+  color: var(--qist-muted);
+  font-size: 10px;
+}
+
+.picked-check {
+  color: var(--qist-primary);
+  font-size: 19px;
+}
+
+.add-customer-inline {
+  align-self: flex-start;
+  margin: -4px 0 0;
+}
+
+.inline-summary {
+  padding: 12px;
+  border: 1px solid var(--qist-card-border);
+  border-radius: 12px;
+  background: var(--qist-panel);
+}
+
+.calculated-value {
+  padding: 12px;
+  border: 1px solid var(--qist-card-border);
+  border-radius: 12px;
+  background: var(--qist-panel);
+}
+
+.inline-summary {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.calculated-value {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-color: color-mix(in srgb, var(--qist-primary) 30%, var(--qist-card-border));
+}
+
+.calculated-value > span {
+  color: var(--qist-muted);
+  font-size: 10px;
+}
+
+.calculated-value strong {
+  color: var(--qist-primary);
+  font-size: 22px;
+}
+
+.calculated-value small {
+  color: var(--qist-muted);
+  font-size: 10px;
+}
+
+.sale-review {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  padding: 13px;
+  border: 1px solid var(--qist-card-border);
+  border-radius: 13px;
+  background: var(--qist-panel);
+}
+
+.sale-review > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.sale-review > div small {
+  color: var(--qist-muted);
+}
+
+.sale-review > div strong {
+  text-align: right;
+}
+
+.success-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 4px;
+  text-align: center;
+}
+
+.success-check {
+  display: grid;
+  width: 62px;
+  height: 62px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--qist-good-soft);
+  color: var(--qist-good);
+  font-size: 32px;
+}
+
+.success-state h1 {
+  margin: 2px 0 0;
+  font-size: 21px;
+}
+
+.success-state > p {
+  margin: 0 0 6px;
+  color: var(--qist-muted);
+  font-size: 12px;
+}
+
+.success-state .sale-review {
+  align-self: stretch;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.payment-sheet > .field-label {
+  margin-bottom: 12px;
+}

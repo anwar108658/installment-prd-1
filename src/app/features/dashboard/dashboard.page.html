@@ -1,0 +1,37 @@
+<app-shell title="Dashboard" activeTab="dashboard">
+  <section class="screen-section">
+    <div class="screen-intro">
+      <div><h1>Good morning, Arif</h1><p>Here’s your shop at a glance.</p></div>
+      <span class="today-date">01 Nov 2026</span>
+    </div>
+    <div class="demo-note">Sample data · Preview only, not business records</div>
+    <div class="dashboard-total">
+      <span>Total outstanding</span>
+      <strong class="money">PKR 4,82,900</strong>
+      <div class="dashboard-total-bottom"><span>Across 26 active accounts</span><ion-icon name="wallet-outline"></ion-icon></div>
+    </div>
+    <div class="dashboard-tiles">
+      <a class="dashboard-tile" routerLink="/recovery">
+        <span class="tile-icon"><ion-icon name="wallet-outline"></ion-icon></span>
+        <strong class="money">PKR 24,650</strong><span>Collected today</span>
+      </a>
+      <a class="dashboard-tile" routerLink="/customers">
+        <span class="tile-icon overdue-icon"><ion-icon name="calendar-outline"></ion-icon></span>
+        <strong>04</strong><span>Overdue accounts</span>
+      </a>
+    </div>
+    <div class="section-heading"><h2>Quick actions</h2></div>
+    <a class="action-row" routerLink="/customers/new">
+      <span class="action-icon"><ion-icon name="people-outline"></ion-icon></span>
+      <span><strong>Add customer</strong><small>Create a customer account</small></span>
+    </a>
+    <a class="action-row" routerLink="/sales/new">
+      <span class="action-icon"><ion-icon name="wallet-outline"></ion-icon></span>
+      <span><strong>New sale</strong><small>Set up an installment plan</small></span>
+    </a>
+    <a class="action-row" routerLink="/recovery/monthly">
+      <span class="action-icon"><ion-icon name="calendar-outline"></ion-icon></span>
+      <span><strong>Monthly recovery sheet</strong><small>View the November collection sheet</small></span>
+    </a>
+  </section>
+</app-shell>

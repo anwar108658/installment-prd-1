@@ -1,0 +1,57 @@
+<ion-content [fullscreen]="true" class="login">
+  <main class="shell">
+    <section class="login-card" aria-labelledby="login-title">
+      <header class="brand">
+        <img src="/assets/icon/d-logo.png" alt="AD Traders" />
+        <span class="brand-kicker">AD TRADERS</span>
+        <h1 id="login-title">Welcome back</h1>
+        <p>Sign in to manage your sales and recovery.</p>
+      </header>
+
+      <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+        <ion-input
+          label="Email"
+          labelPlacement="floating"
+          fill="outline"
+          type="email"
+          inputmode="email"
+          size="small"
+          autocomplete="username"
+          formControlName="email"
+        ></ion-input>
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <p class="field-error" role="alert">Enter a valid email address.</p>
+        }
+
+        <ion-input
+          label="Password"
+          labelPlacement="floating"
+          fill="outline"
+          type="password"
+          size="small"
+          autocomplete="current-password"
+          formControlName="password"
+        >
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+        @if (form.controls.password.touched && form.controls.password.invalid) {
+          <p class="field-error" role="alert">Enter your password.</p>
+        }
+
+        @if (error()) {
+          <p class="form-error" role="alert">{{ error() }}</p>
+        }
+
+        <ion-button expand="block" type="submit" [disabled]="loading()">
+          @if (loading()) {
+            <ion-spinner name="crescent"></ion-spinner>
+          } @else {
+            Sign in
+          }
+        </ion-button>
+      </form>
+
+      <footer>Accounts are created by your admin.</footer>
+    </section>
+  </main>
+</ion-content>

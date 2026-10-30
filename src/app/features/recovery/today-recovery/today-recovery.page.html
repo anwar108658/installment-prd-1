@@ -1,0 +1,53 @@
+<app-shell title="Today's Recovery" activeTab="recovery">
+  <section class="screen-section">
+    <div class="screen-intro">
+      <div><h1>Today's Recovery</h1><p>Daily collection schedule</p></div>
+      <label class="date-control">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <input type="date" [(ngModel)]="recoveryDate" aria-label="Recovery date" />
+      </label>
+    </div>
+    <div class="progress-card">
+      <div class="progress-title">
+        <div>
+          <span class="meta-label">Collected today</span>
+          <strong class="money">PKR {{ collectedToday | number }} <small>of PKR {{ dailyTarget | number }}</small></strong>
+        </div>
+        <span class="progress-percent">{{ progress | number: '1.0-0' }}%</span>
+      </div>
+      <div class="progress-track"><span [style.width.%]="progress"></span></div>
+      <span class="progress-hint">Keep going — your daily target is in reach.</span>
+    </div>
+    <div class="demo-note">Sample recovery entries · Preview only</div>
+    <div class="recovery-list">
+      @for (row of demo.recoveryRows; track row.code) {
+      <article class="recovery-row" [class.row-paid]="row.paid" [class.row-skipped]="row.status === 'Skipped'">
+        <div class="recovery-row-main">
+          <div class="recovery-avatar">{{ row.name.slice(0, 1) }}</div>
+          <div class="recovery-customer">
+            <strong><span class="customer-code">{{ row.code }}</span> · {{ row.name }}</strong>
+            <span class="money">Due PKR {{ row.amount | number }}</span>
+          </div>
+          @if (row.paid) {
+            <ion-icon class="paid-check" name="checkmark-circle"></ion-icon>
+          }
+          @if (!row.synced && !row.paid) {
+            <ion-icon class="pending-sync" name="sync-outline"></ion-icon>
+          }
+        </div>
+        <div class="recovery-row-actions">
+          <ion-chip class="status-chip" [ngClass]="row.status.toLowerCase()">{{ row.status }}</ion-chip>
+          @if (!row.paid && row.status !== 'Skipped') {
+            <ion-button class="paid-button" size="small" (click)="markPaid(row)">Paid</ion-button>
+            <ion-button fill="clear" class="skip-button" size="small" (click)="skip(row)">Skip</ion-button>
+          }
+        </div>
+      </article>
+      }
+    </div>
+    <ion-button expand="block" fill="outline" class="monthly-button" routerLink="/recovery/monthly">
+      <ion-icon slot="start" name="document-text-outline"></ion-icon>
+      Open Monthly Recovery Sheet
+    </ion-button>
+  </section>
+</app-shell>

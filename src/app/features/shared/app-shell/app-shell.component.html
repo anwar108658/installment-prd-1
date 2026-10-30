@@ -1,0 +1,48 @@
+<div class="app-frame" [attr.data-theme]="demo.themeMode">
+  <ion-header class="app-header">
+    <ion-toolbar>
+      <div class="toolbar-inner flex items-center">
+        @if (showBack) {
+          <ion-button fill="clear" class="toolbar-icon back-button" aria-label="Go back" [routerLink]="backUrl">
+            <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+          </ion-button>
+        }
+        <div class="toolbar-title">
+          <span class="brand-kicker">AD TRADERS <span class="demo-label">SAMPLE</span></span>
+          <ion-title>{{ title }}</ion-title>
+        </div>
+        <ion-button fill="clear" class="toolbar-icon theme-button" aria-label="Switch light or dark theme" (click)="toggleTheme()">
+          <ion-icon slot="icon-only" [name]="demo.themeMode === 'dark' ? 'sunny-outline' : 'moon-outline'"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="false" class="page-content">
+    <div class="page-wrap">
+      <div class="offline-banner">
+        <ion-icon name="sync-outline"></ion-icon>
+        <span>Saved on this device - will sync</span>
+        <span class="preview-dot"></span>
+      </div>
+      <ng-content></ng-content>
+    </div>
+  </ion-content>
+
+  @if (activeTab) {
+  <ion-tab-bar class="bottom-nav">
+    <ion-tab-button [selected]="activeTab === 'dashboard'" routerLink="/dashboard">
+      <ion-icon name="home-outline"></ion-icon><ion-label>Dashboard</ion-label>
+    </ion-tab-button>
+    <ion-tab-button [selected]="activeTab === 'customers'" routerLink="/customers">
+      <ion-icon name="people-outline"></ion-icon><ion-label>Customers</ion-label>
+    </ion-tab-button>
+    <ion-tab-button [selected]="activeTab === 'recovery'" routerLink="/recovery">
+      <ion-icon name="calendar-outline"></ion-icon><ion-label>Recovery</ion-label>
+    </ion-tab-button>
+    <ion-tab-button [selected]="activeTab === 'profile'" routerLink="/profile">
+      <ion-icon name="person-outline"></ion-icon><ion-label>Profile</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+  }
+</div>

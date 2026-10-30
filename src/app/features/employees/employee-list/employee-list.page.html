@@ -1,0 +1,32 @@
+<app-shell title="Employees" [showBack]="true" backUrl="/profile">
+  <section class="screen-section">
+    <div class="screen-intro">
+      <div><h1>Employees</h1><p>Admin-only team management</p></div>
+      <ion-button size="small" routerLink="/employees/new">Add employee</ion-button>
+    </div>
+    <div class="demo-note">Sample team · Preview only</div>
+    @if (successMessage) {
+      <div class="success-message">Employee added successfully</div>
+    }
+    @if (errorMessage) {
+      <div class="error-message">{{ errorMessage }}</div>
+    }
+    @for (employee of demo.employees; track employee.email; let i = $index) {
+      <article class="employee-card">
+        <div class="employee-avatar">{{ employee.name.slice(0, 1) }}</div>
+        <div class="employee-info"><strong>{{ employee.name }}</strong><span>{{ employee.phone }}</span></div>
+        <ion-chip class="status-chip" [ngClass]="employee.status.toLowerCase()">{{ employee.status }}</ion-chip>
+        <ion-button fill="clear" class="employee-menu" (click)="openMenu = openMenu === i ? -1 : i" aria-label="Employee actions">
+          <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+        </ion-button>
+        @if (openMenu === i) {
+          <div class="employee-actions">
+            <button type="button" routerLink="/employees/new">Edit</button>
+            <button type="button">Change password</button>
+            <button type="button" (click)="changeStatus(employee)">{{ employee.status === 'Active' ? 'Block' : 'Unblock' }}</button>
+          </div>
+        }
+      </article>
+    }
+  </section>
+</app-shell>

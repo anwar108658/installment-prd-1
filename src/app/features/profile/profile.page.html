@@ -1,0 +1,66 @@
+<app-shell title="Profile" activeTab="profile">
+  <section class="screen-section">
+    <div class="profile-card">
+      <div class="profile-avatar">MA</div>
+      <h1>Muhammad Arif</h1>
+      <ion-chip class="role-chip">Administrator</ion-chip>
+      <div class="profile-contact">
+        <span><ion-icon name="call-outline"></ion-icon> +92 300 1234567</span>
+        <span><ion-icon name="mail-outline"></ion-icon> arif@adtraders.pk</span>
+      </div>
+      <span class="demo-note">Sample profile · Preview only</span>
+    </div>
+    <div class="section-heading"><h2>Account</h2></div>
+    <button type="button" class="action-row">
+      <span class="action-icon"><ion-icon name="person-outline"></ion-icon></span>
+      <span><strong>Edit profile</strong><small>Update your details</small></span>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </button>
+    <button type="button" class="action-row">
+      <span class="action-icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+      <span><strong>Change password</strong><small>Manage your sign-in security</small></span>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </button>
+    <div class="profile-setting">
+      <div class="setting-label">
+        <span class="action-icon"><ion-icon [name]="demo.themeMode === 'dark' ? 'moon-outline' : 'sunny-outline'"></ion-icon></span>
+        <span><strong>Theme</strong><small>Light, Dark or System</small></span>
+      </div>
+      <div class="theme-options">
+        <button type="button" [class.chosen]="demo.themeMode === 'light'" (click)="demo.themeMode = 'light'">Light</button>
+        <button type="button" [class.chosen]="demo.themeMode === 'dark'" (click)="demo.themeMode = 'dark'">Dark</button>
+        <button type="button" [class.chosen]="demo.themeMode === 'system'" (click)="demo.themeMode = 'system'">System</button>
+      </div>
+    </div>
+    <button type="button" class="action-row">
+      <span class="action-icon"><ion-icon name="sync-outline"></ion-icon></span>
+      <span><strong>Sync status</strong><small>Last synced just now · Offline preview</small></span>
+      <ion-badge class="sync-badge">On device</ion-badge>
+    </button>
+    <button type="button" class="action-row" routerLink="/employees">
+      <span class="action-icon"><ion-icon name="people-outline"></ion-icon></span>
+      <span><strong>Employees</strong><small>Admin access</small></span>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </button>
+    <button type="button" class="action-row">
+      <span class="action-icon"><ion-icon name="information-circle-outline"></ion-icon></span>
+      <span><strong>About</strong><small>AD Traders · Version 1.0</small></span>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </button>
+    <ion-button expand="block" fill="outline" class="logout-button" (click)="logoutDialogOpen = true">
+      <ion-icon slot="start" name="log-out-outline"></ion-icon>Logout
+    </ion-button>
+  </section>
+</app-shell>
+
+<ion-modal [isOpen]="logoutDialogOpen" class="confirm-modal" (didDismiss)="logoutDialogOpen = false">
+  <ng-template>
+    <div class="confirm-dialog" [attr.data-theme]="demo.themeMode">
+      <div class="logout-icon"><ion-icon name="log-out-outline"></ion-icon></div>
+      <h2>Log out?</h2>
+      <p>Are you sure you want to log out of AD Traders?</p>
+      <ion-button expand="block" color="danger" (click)="logoutDialogOpen = false">Log out</ion-button>
+      <ion-button expand="block" fill="clear" class="cancel-button" (click)="logoutDialogOpen = false">Cancel</ion-button>
+    </div>
+  </ng-template>
+</ion-modal>

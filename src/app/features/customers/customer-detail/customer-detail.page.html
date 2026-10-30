@@ -1,0 +1,119 @@
+<app-shell title="Customer Details" [showBack]="true" backUrl="/customers">
+  @if (customer; as person) {
+  <section class="screen-section">
+    <div class="detail-profile-card">
+      <div class="detail-profile-top">
+        <div class="profile-avatar small-avatar">{{ person.name.slice(0, 1) }}</div>
+        <div class="detail-name">
+          <span class="customer-code">{{ person.code }}</span>
+          <h1>{{ person.name }}</h1>
+          <p>{{ person.phone }}</p>
+        </div>
+        <button type="button" class="more-button" aria-label="Customer actions" (click)="menuOpen = !menuOpen">
+          <ion-icon name="ellipsis-vertical"></ion-icon>
+        </button>
+      </div>
+      @if (menuOpen) {
+      <div class="customer-action-menu">
+        <a [routerLink]="['/customers', person.code, 'edit']">Edit customer</a>
+        <a [routerLink]="['/sales/new']" [queryParams]="{ customer: person.code }">New sale</a>
+      </div>
+      }
+      <div class="detail-profile-actions">
+        <ion-button fill="outline" size="small"><ion-icon slot="start" name="call-outline"></ion-icon>Call</ion-button>
+        <ion-button fill="outline" size="small"><ion-icon slot="start" name="logo-whatsapp"></ion-icon>WhatsApp</ion-button>
+        <ion-button fill="clear" size="small" [routerLink]="['/customers', person.code, 'edit']">Edit</ion-button>
+      </div>
+      <ion-button expand="block" class="new-sale-button" [routerLink]="['/sales/new']" [queryParams]="{ customer: person.code }">
+        <ion-icon slot="start" name="add-outline"></ion-icon>New sale
+      </ion-button>
+    </div>
+
+    <div class="summary-card">
+      <div><span>Total sale</span><strong class="money">PKR {{ person.saleAmount | number }}</strong></div>
+      <div><span>Total recovered</span><strong class="money recovered-money">PKR {{ person.recovered | number }}</strong></div>
+      <div class="remaining-summary"><span>Remaining balance</span><strong class="money">PKR {{ person.balance | number }}</strong></div>
+    </div>
+
+    <div class="section-heading"><h2>Active Sales</h2><span class="section-count">1 active</span></div>
+    <article class="sale-card">
+      <div class="sale-card-heading">
+        <div><span class="meta-label">ITEM</span><h3>{{ person.item }}</h3></div>
+        <ion-chip class="status-chip" [ngClass]="person.status.toLowerCase()">{{ person.status }}</ion-chip>
+      </div>
+      <div class="sale-facts">
+        <div><span>Sale amount</span><strong class="money">PKR {{ person.saleAmount | number }}</strong></div>
+        <div><span>Daily installment</span><strong class="money">PKR {{ person.dailyInstallment | number }}</strong></div>
+        <div><span>Days remaining</span><strong>{{ person.daysRemaining }} days</strong></div>
+      </div>
+      <div class="sale-progress">
+        <div><span>Recovered</span><span>{{ person.progress }}%</span></div>
+        <div class="progress-track"><span [style.width.%]="person.progress"></span></div>
+      </div>
+      <ion-button expand="block" (click)="openPaymentSheet()">Record Payment</ion-button>
+    </article>
+
+    <div class="section-heading history-heading"><h2>Payment History</h2><button type="button">View all</button></div>
+    <div class="history-card">
+      @for (payment of demo.paymentHistory; track payment.date) {
+        <div class="history-row">
+          <div class="history-icon"><ion-icon name="checkmark-outline"></ion-icon></div>
+          <div class="history-date"><strong>{{ payment.date }}</strong><small>Payment received</small></div>
+          <strong class="money recovered-money">+ PKR {{ payment.amount | number }}</strong>
+        </div>
+      }
+    </div>
+  </section>
+  } @else {
+    <div class="empty-state">
+      <h2>Customer not found</h2>
+      <p>This sample customer is not available in the local preview.</p>
+      <ion-button routerLink="/customers">Back to customers</ion-button>
+    </div>
+  }
+</app-shell>
+
+<ion-modal
+  [isOpen]="paymentSheetOpen"
+  [initialBreakpoint]="0.78"
+  [breakpoints]="[0, 0.78]"
+  [backdropDismiss]="!paymentSaved"
+  class="payment-modal"
+  (didDismiss)="paymentSheetOpen = false"
+>
+  <ng-template>
+    <div class="payment-sheet" [attr.data-theme]="demo.themeMode">
+      <div class="sheet-handle"></div>
+      @if (!paymentSaved) {
+        <div class="payment-sheet-heading">
+          <div><span class="brand-kicker">CUSTOMER PAYMENT</span><h2>Record Payment</h2></div>
+          <ion-button fill="clear" class="toolbar-icon" (click)="paymentSheetOpen = false" aria-label="Close payment sheet">
+            <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+          </ion-button>
+        </div>
+        <div class="payment-customer">
+          <strong>{{ customer?.name }}</strong>
+          <span>Remaining balance <b class="money">PKR {{ customer?.balance | number }}</b></span>
+        </div>
+        <label class="field-label">
+          <span>Amount (PKR)</span>
+          <ion-input [(ngModel)]="paymentAmount" type="number" inputmode="decimal"></ion-input>
+        </label>
+        <label class="field-label"><span>Date</span><ion-input type="date" value="2026-11-01"></ion-input></label>
+        <label class="field-label"><span>Note <small>(optional)</small></span><ion-input [(ngModel)]="paymentNote" placeholder="Add a note"></ion-input></label>
+        <div class="payment-sheet-actions">
+          <ion-button expand="block" (click)="savePayment()">Save Payment</ion-button>
+          <ion-button expand="block" fill="clear" class="cancel-button" (click)="paymentSheetOpen = false">Cancel</ion-button>
+        </div>
+      } @else {
+        <div class="payment-success">
+          <div class="success-check"><ion-icon name="checkmark-outline"></ion-icon></div>
+          <h2>Payment saved</h2>
+          <p>Payment recorded on this device.</p>
+          <div class="new-balance"><span>New balance</span><strong class="money">PKR {{ customer?.balance | number }}</strong></div>
+          <ion-button expand="block" (click)="paymentSheetOpen = false">Done</ion-button>
+        </div>
+      }
+    </div>
+  </ng-template>
+</ion-modal>

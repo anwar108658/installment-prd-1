@@ -1,0 +1,65 @@
+<app-shell title="Customers" activeTab="customers">
+  <section class="screen-section">
+    <div class="screen-intro">
+      <div>
+        <h1>Customers</h1>
+        <p>Manage your installment accounts</p>
+      </div>
+      <ion-chip class="count-chip">{{ demo.customers.length }} accounts</ion-chip>
+    </div>
+
+    <label class="search-control">
+      <ion-icon name="search-outline"></ion-icon>
+      <ion-input [(ngModel)]="searchText" placeholder="Search by name or code" aria-label="Search by name or customer code"></ion-input>
+    </label>
+
+    <div class="filter-row" aria-label="Filter customers">
+      @for (filter of filters; track filter) {
+        <ion-chip [class.selected]="customerFilter === filter" (click)="customerFilter = filter">
+          {{ filter }}
+        </ion-chip>
+      }
+    </div>
+    <div class="demo-note">Sample data · Preview only, not business records</div>
+
+    @if (filteredCustomers.length) {
+      @for (customer of filteredCustomers; track customer.code) {
+        <a class="customer-card" [routerLink]="['/customers', customer.code]">
+          <div class="customer-card-top">
+            <div class="customer-heading">
+              <span class="customer-code">{{ customer.code }}</span>
+              <strong>{{ customer.name }}</strong>
+            </div>
+            <ion-chip class="status-chip" [ngClass]="customer.status.toLowerCase()">{{ customer.status }}</ion-chip>
+          </div>
+          <div class="customer-contact">{{ customer.phone }}</div>
+          <div class="customer-card-bottom">
+            <div>
+              <span class="meta-label">Active item</span>
+              <strong>{{ customer.item }}</strong>
+            </div>
+            <div class="balance-block">
+              <span class="meta-label">Outstanding</span>
+              <strong class="money">PKR {{ customer.balance | number }}</strong>
+            </div>
+          </div>
+          <div class="card-chevron"><ion-icon name="chevron-forward-outline"></ion-icon></div>
+        </a>
+      }
+    } @else {
+      <div class="empty-state">
+        <div class="empty-icon"><ion-icon name="people-outline"></ion-icon></div>
+        <h2>No customers yet</h2>
+        <p>Add your first customer to start tracking sales and payments.</p>
+        <ion-button fill="outline" (click)="emptyPreview = false">Show sample customers</ion-button>
+      </div>
+    }
+
+    <ion-button class="fab-add" shape="round" aria-label="Add customer" routerLink="/customers/new">
+      <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+    </ion-button>
+    <button type="button" class="preview-empty-link" (click)="emptyPreview = !emptyPreview">
+      {{ emptyPreview ? 'Back to sample list' : 'Preview empty state' }}
+    </button>
+  </section>
+</app-shell>

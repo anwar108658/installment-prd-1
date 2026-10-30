@@ -1,0 +1,58 @@
+<app-shell [title]="isEditing ? 'Edit Customer' : 'Add Customer'" [showBack]="true" [backUrl]="backUrl">
+  <section class="screen-section form-screen">
+    <div class="form-intro">
+      <h1>{{ isEditing ? 'Update customer' : 'Customer details' }}</h1>
+      <p>{{ isEditing ? 'Update this customer’s contact information.' : 'Add the customer’s contact information and guarantor details.' }}</p>
+    </div>
+    <div class="form-card">
+      <label class="field-label">
+        <span>Customer code</span>
+        <ion-input [value]="customer.code" readonly></ion-input>
+        <small>Generated automatically</small>
+      </label>
+      <label class="field-label">
+        <span>Full name <b>*</b></span>
+        <ion-input [(ngModel)]="customer.name" placeholder="Enter full name"></ion-input>
+        @if (attempted && !customer.name.trim()) {
+          <small class="field-error">Enter the customer's full name.</small>
+        }
+      </label>
+      <label class="field-label">
+        <span>Phone <b>*</b></span>
+        <ion-input [(ngModel)]="customer.phone" type="tel" placeholder="+92 3XX XXXXXXX"></ion-input>
+        @if (attempted && !customer.phone.trim()) {
+          <small class="field-error">Enter a phone number.</small>
+        }
+      </label>
+      <label class="field-label" [class.field-invalid]="attempted && !cnicValid">
+        <span>CNIC <b>*</b></span>
+        <ion-input [(ngModel)]="customer.cnic" inputmode="numeric" placeholder="35202-1234567-1"></ion-input>
+        <small>13 digits · Format: 35202-1234567-1</small>
+        @if (attempted && !cnicValid) {
+          <small class="field-error">CNIC must contain 13 digits.</small>
+        }
+      </label>
+      <label class="field-label">
+        <span>Address</span>
+        <ion-textarea [(ngModel)]="customer.address" rows="2" placeholder="Street, area, city"></ion-textarea>
+      </label>
+      <div class="form-divider"><span>Guarantor information</span></div>
+      <label class="field-label">
+        <span>Guarantor name</span>
+        <ion-input [(ngModel)]="customer.guarantorName" placeholder="Full name"></ion-input>
+      </label>
+      <label class="field-label">
+        <span>Guarantor phone</span>
+        <ion-input [(ngModel)]="customer.guarantorPhone" type="tel" placeholder="+92 3XX XXXXXXX"></ion-input>
+      </label>
+      <label class="field-label">
+        <span>Notes</span>
+        <ion-textarea [(ngModel)]="customer.notes" rows="2" placeholder="Optional notes"></ion-textarea>
+      </label>
+    </div>
+    <div class="sticky-actions">
+      <ion-button expand="block" (click)="saveCustomer()">{{ isEditing ? 'Save Changes' : 'Save Customer' }}</ion-button>
+      <ion-button expand="block" fill="clear" class="cancel-button" [routerLink]="backUrl">Cancel</ion-button>
+    </div>
+  </section>
+</app-shell>

@@ -1,0 +1,99 @@
+<app-shell title="New Sale" [showBack]="true" backUrl="/customers">
+  <section class="screen-section form-screen">
+    @if (!saleSaved) {
+      <div class="form-intro">
+        <h1>Create installment sale</h1>
+        <p>Set up a clear payment plan in three steps.</p>
+      </div>
+      <div class="step-indicator">
+        <div [class.current]="saleStep >= 1"><span>1</span><small>Customer</small></div>
+        <i [class.done]="saleStep >= 2"></i>
+        <div [class.current]="saleStep >= 2"><span>2</span><small>Item</small></div>
+        <i [class.done]="saleStep >= 3"></i>
+        <div [class.current]="saleStep >= 3"><span>3</span><small>Installments</small></div>
+      </div>
+
+      @if (saleStep === 1) {
+      <div class="form-card">
+        <div class="step-title"><span>STEP 1 OF 3</span><h2>Select customer</h2></div>
+        <label class="search-control">
+          <ion-icon name="search-outline"></ion-icon>
+          <ion-input [(ngModel)]="searchText" placeholder="Search by name or customer code"></ion-input>
+        </label>
+        @for (customer of filteredCustomers; track customer.code) {
+          <button type="button" class="picker-row" [class.picked]="sale.customerCode === customer.code" (click)="sale.customerCode = customer.code">
+            <span class="recovery-avatar">{{ customer.name.slice(0, 1) }}</span>
+            <span><strong>{{ customer.code }} · {{ customer.name }}</strong><small>{{ customer.phone }}</small></span>
+            @if (sale.customerCode === customer.code) {
+              <ion-icon class="picked-check" name="checkmark-circle"></ion-icon>
+            }
+          </button>
+        }
+        <ion-button fill="clear" class="add-customer-inline" [routerLink]="['/customers/new']" [queryParams]="{ returnTo: 'sale' }">
+          <ion-icon slot="start" name="person-add-outline"></ion-icon>Add a customer
+        </ion-button>
+      </div>
+      }
+
+      @if (saleStep === 2) {
+      <div class="form-card">
+        <div class="step-title"><span>STEP 2 OF 3</span><h2>Sale item</h2></div>
+        <label class="field-label"><span>Item description</span><ion-input [(ngModel)]="sale.item"></ion-input></label>
+        <label class="field-label"><span>Sale amount (PKR)</span><ion-input [(ngModel)]="sale.amount" type="number" inputmode="decimal"></ion-input></label>
+        <label class="field-label"><span>Return amount <small>(optional)</small></span><ion-input [(ngModel)]="sale.returnAmount" type="number" inputmode="decimal"></ion-input></label>
+        <div class="inline-summary"><span>Financed amount</span><strong class="money">PKR {{ saleBalance | number }}</strong></div>
+      </div>
+      }
+
+      @if (saleStep === 3) {
+      <div class="form-card">
+        <div class="step-title"><span>STEP 3 OF 3</span><h2>Installment plan</h2></div>
+        <label class="field-label"><span>Installment period (days)</span><ion-input [(ngModel)]="sale.periodDays" type="number"></ion-input></label>
+        <div class="calculated-value">
+          <span>Auto-calculated daily amount</span>
+          <strong class="money">PKR {{ calculatedDailyAmount | number }}</strong>
+          <small>Based on PKR {{ saleBalance | number }} over {{ sale.periodDays }} days</small>
+        </div>
+        <label class="field-label"><span>Daily installment (PKR) · Editable</span><ion-input [(ngModel)]="sale.dailyInstallment" type="number" inputmode="decimal"></ion-input></label>
+        <label class="field-label"><span>Start date</span><ion-input [(ngModel)]="sale.startDate" type="date"></ion-input></label>
+        <div class="sale-review">
+          <span>SALE SUMMARY</span>
+          <div><small>Customer</small><strong>{{ sale.customerCode }} · {{ demo.getCustomer(sale.customerCode)?.name }}</strong></div>
+          <div><small>Item</small><strong>{{ sale.item }}</strong></div>
+          <div><small>Sale amount</small><strong class="money">PKR {{ saleBalance | number }}</strong></div>
+          <div><small>Period</small><strong>{{ sale.periodDays }} days</strong></div>
+          <div><small>Daily installment</small><strong class="money">PKR {{ sale.dailyInstallment | number }}</strong></div>
+        </div>
+      </div>
+      }
+
+      <div class="sticky-actions">
+        @if (saleStep < 3) {
+          <ion-button expand="block" (click)="nextStep()">Continue</ion-button>
+        }
+        @if (saleStep === 3) {
+          <ion-button expand="block" (click)="confirmSale()">Confirm Sale</ion-button>
+        }
+        @if (saleStep > 1) {
+          <ion-button expand="block" fill="clear" class="cancel-button" (click)="previousStep()">Back</ion-button>
+        } @else {
+          <ion-button expand="block" fill="clear" class="cancel-button" routerLink="/customers">Cancel</ion-button>
+        }
+      </div>
+    } @else {
+      <div class="success-state">
+        <div class="success-check"><ion-icon name="checkmark-outline"></ion-icon></div>
+        <h1>Sale created</h1>
+        <p>Your installment plan is ready.</p>
+        <div class="sale-review">
+          <span>SALE SUMMARY</span>
+          <div><small>Customer</small><strong>{{ sale.customerCode }} · {{ demo.getCustomer(sale.customerCode)?.name }}</strong></div>
+          <div><small>Item</small><strong>{{ sale.item }}</strong></div>
+          <div><small>Sale amount</small><strong class="money">PKR {{ saleBalance | number }}</strong></div>
+          <div><small>Daily installment</small><strong class="money">PKR {{ sale.dailyInstallment | number }}</strong></div>
+        </div>
+        <ion-button expand="block" routerLink="/customers">Done</ion-button>
+      </div>
+    }
+  </section>
+</app-shell>

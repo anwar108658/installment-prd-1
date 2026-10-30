@@ -1,0 +1,35 @@
+<app-shell title="Add Employee" [showBack]="true" backUrl="/employees">
+  <section class="screen-section form-screen">
+    <div class="form-intro"><h1>New team member</h1><p>Create an employee account for your shop.</p></div>
+    <div class="form-card">
+      <label class="field-label">
+        <span>Full name <b>*</b></span>
+        <ion-input [(ngModel)]="employee.name" placeholder="Enter full name"></ion-input>
+        @if (attempted && !employee.name.trim()) {
+          <small class="field-error">Full name is required.</small>
+        }
+      </label>
+      <label class="field-label">
+        <span>Email <b>*</b></span>
+        <ion-input [(ngModel)]="employee.email" type="email" placeholder="name@example.com"></ion-input>
+        @if (attempted && !employee.email.trim()) {
+          <small class="field-error">Email is required.</small>
+        }
+      </label>
+      <label class="field-label password-field">
+        <span>Password <b>*</b></span>
+        <ion-input [(ngModel)]="employee.password" [type]="showPassword ? 'text' : 'password'" placeholder="Create password"></ion-input>
+        <ion-button fill="clear" class="show-password" (click)="showPassword = !showPassword">{{ showPassword ? 'Hide' : 'Show' }}</ion-button>
+      </label>
+      <label class="field-label"><span>Phone</span><ion-input [(ngModel)]="employee.phone" type="tel" placeholder="+92 3XX XXXXXXX"></ion-input></label>
+      <label class="field-label"><span>CNIC</span><ion-input [(ngModel)]="employee.cnic" inputmode="numeric" placeholder="13-digit CNIC"></ion-input></label>
+      @if (errorMessage) {
+        <p class="form-error">{{ errorMessage }}</p>
+      }
+    </div>
+    <div class="sticky-actions">
+      <ion-button expand="block" (click)="saveEmployee()">Create Employee</ion-button>
+      <ion-button expand="block" fill="clear" class="cancel-button" routerLink="/employees">Cancel</ion-button>
+    </div>
+  </section>
+</app-shell>

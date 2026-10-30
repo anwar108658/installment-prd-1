@@ -1,0 +1,54 @@
+<app-shell title="Monthly Recovery" [showBack]="true" backUrl="/recovery">
+  <section class="screen-section sheet-screen">
+    <div class="screen-intro">
+      <div><h1>Recovery Sheet</h1><p>Monthly customer collection ledger</p></div>
+      <ion-select class="month-select" aria-label="Select recovery month" [(ngModel)]="selectedMonth">
+        <ion-select-option value="Nov 2026">Nov 2026</ion-select-option>
+        <ion-select-option value="Oct 2026">Oct 2026</ion-select-option>
+        <ion-select-option value="Sep 2026">Sep 2026</ion-select-option>
+      </ion-select>
+    </div>
+    <div class="demo-note">Sample sheet · Preview only, not business records</div>
+    <div class="sheet-legend"><span><i></i> Payment received</span><span>All amounts in PKR</span></div>
+    <div class="sheet-scroll">
+      <table class="recovery-sheet">
+        <thead>
+          <tr>
+            <th class="frozen-col">Customer</th>
+            <th>Item</th><th>Sale</th><th>Opening</th>
+            @for (day of days; track day) {
+              <th>D{{ day }}</th>
+            }
+            <th>Return</th><th>Total recovery</th><th>Closing</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="frozen-col"><strong>689 · Wasil</strong><small>Customer</small></td>
+            <td>LCD 18&quot; Lenovo</td><td>360,000</td><td>159,500</td>
+            @for (amount of dailyAmounts; track $index) {
+              <td [class.paid-cell]="amount !== null">{{ amount === null ? '' : (amount | number) }}</td>
+            }
+            <td>0</td><td>29,000</td><td>130,500</td>
+          </tr>
+          <tr class="sheet-total">
+            <td class="frozen-col"><strong>Total</strong></td><td>—</td><td>360,000</td><td>159,500</td>
+            @for (amount of dailyAmounts; track $index) {
+              <td>{{ amount === null ? '' : (amount | number) }}</td>
+            }
+            <td>0</td><td>29,000</td><td>130,500</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sheet-summary">
+      <div><span>Customers</span><strong>01</strong></div>
+      <div><span>Monthly recovery</span><strong class="money">PKR 29,000</strong></div>
+      <div><span>Closing balance</span><strong class="money">PKR 130,500</strong></div>
+    </div>
+    <div class="sheet-actions">
+      <ion-button expand="block" fill="outline">Export PDF</ion-button>
+      <ion-button expand="block">Share</ion-button>
+    </div>
+  </section>
+</app-shell>

@@ -1,0 +1,76 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+
+:root {
+  --qist-bg: #f3f6fa;
+  --qist-card: #ffffff;
+  --qist-panel: #f7f9fc;
+  --qist-input-bg: #ffffff;
+  --qist-ink: #14243a;
+  --qist-muted: #65758a;
+  --qist-line: #cbd5e1;
+  --qist-card-border: #e3e9f0;
+  --qist-accent: #f2a541;
+  --qist-primary-hover: #102d4d;
+
+  --ion-color-primary: #183b63;
+  --ion-color-primary-rgb: 24, 59, 99;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  body:not(.light) {
+    --qist-bg: #0b1220;
+    --qist-card: #121d2d;
+    --qist-panel: #172438;
+    --qist-input-bg: #121d2d;
+    --qist-ink: #edf3fa;
+    --qist-muted: #9aabc0;
+    --qist-line: #34445a;
+    --qist-card-border: #29384c;
+    --qist-accent: #f2b451;
+    --qist-primary-hover: #244b75;
+
+    --ion-color-primary: #f2b451;
+    --ion-color-primary-rgb: 242, 180, 81;
+    --ion-color-primary-contrast: #14243a;
+    --ion-color-primary-contrast-rgb: 20, 36, 58;
+  }
+}
+
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import '@ionic/angular/css/palettes/dark.system.css';
